@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+    paths-ignore:
+      - 'README.md'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.11']
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: eifinger/setup-rye@v4
+        id: setup-rye
+        with:
+          enable-cache: true
+          cache-prefix: ${{ matrix.python-version }}
+      - name: Pin python-version ${{ matrix.python-version }}
+        run: rye pin ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        if: steps.setup-rye.outputs.cache-hit != 'true'
+        run: |
+          rye sync --no-lock
+
+      - name: Format
+        run: |
+          rye run ruffcheck
+      - name: Type check
+        run: |
+          rye run mypycheck
+      - name: Run tests
+        run: |
+          rye run pytestcheck
