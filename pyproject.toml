@@ -31,6 +31,7 @@ hello = "hf_datasets_playground:hello"
 [tool.rye.scripts]
 ruffcheck = { cmd = "ruff check src" }
 mypycheck = { cmd = "mypy src" }
+pytestcheck = { cmd = "pytest" }
 
 [tool.hatch.metadata]
 allow-direct-references = true
