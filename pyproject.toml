@@ -8,6 +8,7 @@ authors = [
 dependencies = [
     "datasets>=3.1.0",
     "pydantic>=2.10.1",
+    "transformers>=4.46.3",
 ]
 readme = "README.md"
 requires-python = ">= 3.8"
