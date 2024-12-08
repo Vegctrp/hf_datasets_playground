@@ -29,6 +29,7 @@ dev-dependencies = [
 hello = "hf_datasets_playground:hello"
 
 [tool.rye.scripts]
+tests = { chain = ["ruffcheck", "mypycheck", "pytestcheck" ] }
 ruffcheck = { cmd = "ruff check src" }
 mypycheck = { cmd = "mypy src" }
 pytestcheck = { cmd = "pytest" }
